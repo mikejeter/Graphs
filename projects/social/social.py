@@ -1,5 +1,5 @@
 import random
-from util import stack, queue
+from util import Stack, Queue
 
 class User:
     def __init__(self, name):
@@ -87,6 +87,27 @@ class SocialGraph:
         """
         visited = {}  # Note that this is a dictionary, not a set
         # !!!! IMPLEMENT ME
+
+        queue = Queue()
+
+        queue.enqueue([user_id])
+
+        while queue.size() > 0:
+            path = queue.dequeue()
+
+            node = path[-1]
+
+            if node not in visited:
+                visited[node] = path
+
+                friends = self.friendships[node]
+
+                for friend in friends:
+                    path_copy = path.copy()
+                    path_copy.append(friend)
+
+                    queue.enqueue(path_copy)
+                    
         return visited
 
 
